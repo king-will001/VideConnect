@@ -43,7 +43,7 @@ const EndCallButton = ({
     <Button
       onClick={endCall}
       className={cn(
-        'bg-red-500 text-white hover:bg-red-500/90',
+        'h-10 rounded-full bg-red-500 px-6 text-white hover:bg-red-500/90',
         className,
       )}
       {...props}

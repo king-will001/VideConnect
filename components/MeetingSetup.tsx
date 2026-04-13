@@ -11,13 +11,13 @@ import {
 import {
   formatMeetingAccessLabel,
   getEnabledMeetingFeatures,
-  getMeetingLink,
   getMeetingMetadata,
 } from '@/lib/meeting';
 import {
   isStreamTimeoutError,
   STREAM_REQUEST_TIMEOUT_MS,
 } from '@/lib/stream';
+import { useMeetingLink } from '@/hooks/useMeetingLink';
 
 import Alert from './Alert';
 import { Button } from './ui/button';
@@ -49,7 +49,7 @@ const MeetingSetup = ({
 
   const meeting = getMeetingMetadata(call);
   const enabledFeatures = getEnabledMeetingFeatures(meeting);
-  const meetingLink = getMeetingLink(call.id);
+  const meetingLink = useMeetingLink(call.id);
 
   const [isMicCamToggled, setIsMicCamToggled] = useState(false);
   const [captionsEnabled, setCaptionsEnabled] = useState(meeting.features.captions);
@@ -121,15 +121,17 @@ const MeetingSetup = ({
     );
 
   return (
-    <div className="flex min-h-screen w-full items-center justify-center bg-dark-2 px-4 py-8 text-white">
-      <div className="w-full max-w-6xl rounded-[28px] bg-dark-1 p-6 shadow-2xl lg:p-8">
+    <div className="flex min-h-screen w-full items-center justify-center bg-dark-2 px-4 py-8 text-white sm:px-6">
+      <div className="w-full max-w-6xl rounded-[28px] bg-dark-1 p-4 shadow-2xl sm:p-6 lg:p-8">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
           <div className="flex flex-col gap-4">
             <div className="rounded-[24px] bg-dark-2 p-5">
               <p className="text-sm uppercase tracking-[0.2em] text-sky-1">
                 Meet-style pre-join
               </p>
-              <h1 className="mt-2 text-3xl font-bold">{meeting.title}</h1>
+              <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
+                {meeting.title}
+              </h1>
               <p className="mt-1 text-sm text-sky-1">
                 {meeting.meetingCode} ·{' '}
                 {formatMeetingAccessLabel(meeting.accessType)}
@@ -255,7 +257,7 @@ const MeetingSetup = ({
             Review your devices, confirm your meeting settings, then join.
           </p>
           <Button
-            className="rounded-2xl bg-green-500 px-6 py-2.5 text-white hover:bg-green-500/90"
+            className="w-full rounded-2xl bg-green-500 px-6 py-2.5 text-white hover:bg-green-500/90 sm:w-auto"
             disabled={isJoining}
             onClick={async () => {
               setIsJoining(true);

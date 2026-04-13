@@ -11,7 +11,6 @@ import {
   formatMeetingAccessLabel,
   getEnabledMeetingFeatures,
   getMeetingJoinDestination,
-  getMeetingLink,
   getMeetingMetadata,
   getMeetingPath,
   meetingFeatureOptions,
@@ -22,6 +21,7 @@ import {
 } from '@/lib/meeting';
 import { isStreamTimeoutError } from '@/lib/stream';
 import { cn } from '@/lib/utils';
+import { useMeetingLink } from '@/hooks/useMeetingLink';
 
 import HomeCard from './HomeCard';
 import MeetingModal from './MeetingModal';
@@ -212,7 +212,7 @@ const MeetingTypeList = () => {
   };
 
   const createdMeeting = callDetail ? getMeetingMetadata(callDetail) : null;
-  const meetingLink = callDetail ? getMeetingLink(callDetail.id) : '';
+  const meetingLink = useMeetingLink(callDetail?.id ?? '');
 
   const joinMeeting = () => {
     const destination = getMeetingJoinDestination(values.link);

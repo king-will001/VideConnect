@@ -31,10 +31,10 @@ import {
 import {
   formatMeetingAccessLabel,
   getEnabledMeetingFeatures,
-  getMeetingLink,
   getMeetingMetadata,
 } from '@/lib/meeting';
 import { cn } from '@/lib/utils';
+import { useMeetingLink } from '@/hooks/useMeetingLink';
 
 import {
   DropdownMenu,
@@ -370,7 +370,7 @@ const MeetingRoom = () => {
   }
 
   const meeting = getMeetingMetadata(call);
-  const meetingLink = getMeetingLink(
+  const meetingLink = useMeetingLink(
     call.id,
     isPersonalRoom ? '?personal=true' : '',
   );
@@ -484,8 +484,8 @@ const MeetingRoom = () => {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/65 to-transparent" />
 
       <div className="relative z-10 flex h-full flex-col">
-        <header className="absolute inset-x-3 top-3 z-40 flex items-start justify-between gap-3 sm:inset-x-4 sm:top-4">
-          <div className="flex min-w-0 items-start gap-3">
+        <header className="absolute inset-x-3 top-3 z-40 flex flex-col items-start gap-3 sm:inset-x-4 sm:top-4 sm:flex-row sm:justify-between">
+          <div className="flex min-w-0 flex-1 items-start gap-3">
             <Button
               type="button"
               variant="ghost"
@@ -495,7 +495,7 @@ const MeetingRoom = () => {
               <ArrowLeft size={18} />
             </Button>
 
-            <div className="bg-[#2d2f31]/92 min-w-0 max-w-[min(30rem,calc(100vw-7rem))] rounded-[20px] border border-white/10 px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+            <div className="bg-[#2d2f31]/92 min-w-0 w-full rounded-[20px] border border-white/10 px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:max-w-[min(30rem,calc(100vw-7rem))]">
               <div className="flex flex-wrap items-center gap-2 text-xs text-white/60">
                 <span className="bg-white/8 inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-medium text-white">
                   <span className="size-2 rounded-full bg-[#34a853]" />
@@ -513,7 +513,7 @@ const MeetingRoom = () => {
             </div>
           </div>
 
-          <div className="flex shrink-0 flex-wrap justify-end gap-2">
+          <div className="flex w-full shrink-0 flex-wrap justify-start gap-2 sm:w-auto sm:justify-end">
             <HeaderActionButton
               label="Copy link"
               icon={Copy}
@@ -622,14 +622,14 @@ const MeetingRoom = () => {
         </main>
 
         <footer className="absolute inset-x-3 bottom-3 z-40 flex flex-col gap-3 sm:inset-x-4 sm:bottom-4 lg:inset-x-5">
-          <div className="flex items-end gap-3">
+          <div className="flex flex-wrap items-center gap-3 md:flex-nowrap md:items-end">
             <ParticipantPreviewStrip
               participantNames={participantNames}
               attendeeLabel={attendeeLabel}
               meetingCode={meeting.meetingCode}
             />
 
-            <div className="flex flex-1 justify-center">
+            <div className="flex w-full justify-center md:flex-1">
               <div className="meeting-room-dock rounded-[26px] border border-white/10 bg-[#17191c]/95 px-3.5 py-2.5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
                 <div className="flex items-center justify-center gap-2.5">
                   <ToggleAudioPublishingButton />
@@ -639,7 +639,7 @@ const MeetingRoom = () => {
                   <Button
                     type="button"
                     variant="ghost"
-                    className="size-[3.25rem] rounded-2xl border border-[#f26b60]/40 bg-[#ea4335] p-0 text-white shadow-[0_10px_24px_rgba(234,67,53,0.3)] transition-transform hover:-translate-y-px hover:bg-[#f04b3e] hover:text-white"
+                    className="h-11 w-16 rounded-full border border-[#f26b60]/40 bg-[#ea4335] p-0 text-white shadow-[0_10px_24px_rgba(234,67,53,0.3)] transition-transform hover:-translate-y-px hover:bg-[#f04b3e] hover:text-white sm:h-12 sm:w-20"
                     onClick={handleLeaveCall}
                   >
                     <PhoneOff size={18} />

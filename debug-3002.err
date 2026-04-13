@@ -1,0 +1,8 @@
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3001
+- PID:          26124
+- Dir:          C:\Users\USER DELL\Desktop\zoom-clone
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 26124 /F to stop it.

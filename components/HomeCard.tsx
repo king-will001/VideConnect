@@ -16,7 +16,7 @@ const HomeCard = ({ className, img, title, description, handleClick }: HomeCardP
   return (
     <section
       className={cn(
-        'bg-orange-1 px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[14px]',
+        'bg-orange-1 px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[220px] sm:min-h-[260px] rounded-[14px]',
         handleClick && 'cursor-pointer',
         className,
       )}
@@ -33,8 +33,8 @@ const HomeCard = ({ className, img, title, description, handleClick }: HomeCardP
       </div>
       
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="text-lg font-normal">{description}</p>
+        <h1 className="text-xl font-bold sm:text-2xl">{title}</h1>
+        <p className="text-base font-normal sm:text-lg">{description}</p>
       </div>
     </section>
   );

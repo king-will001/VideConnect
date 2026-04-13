@@ -1,0 +1,15 @@
+
+> yoom@0.1.0 dev
+> next dev --webpack -p 3001
+
+▲ Next.js 16.2.1 (webpack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.56.1:3001
+- Environments: .env.local
+✓ Ready in 7.5s
+[32m✔[0m [33mConsole Ninja[0m extension is connected to [33mNext.js[0m, see [36mhttps://tinyurl.com/2vt8jxzw[0m
+- Experiments (use with caution):
+  ✓ workerThreads
+
+○ Compiling proxy ...
+○ Compiling /sign-in/[[...sign-in]] ...

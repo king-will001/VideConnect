@@ -10,10 +10,10 @@ import { useToast } from '@/components/ui/use-toast';
 import Loader from '@/components/Loader';
 import {
   formatMeetingAccessLabel,
-  getMeetingLink,
   getMeetingPath,
   normalizeMeetingJoinValue,
 } from '@/lib/meeting';
+import { useMeetingLink } from '@/hooks/useMeetingLink';
 
 const Table = ({
   title,
@@ -64,7 +64,7 @@ const PersonalRoom = () => {
     router.push(getMeetingPath(meetingId, '?personal=true'));
   };
 
-  const meetingLink = getMeetingLink(meetingId, '?personal=true');
+  const meetingLink = useMeetingLink(meetingId, '?personal=true');
 
   return (
     <section className="flex size-full flex-col gap-10 text-white">
@@ -76,12 +76,12 @@ const PersonalRoom = () => {
         <Table title="Access" description={formatMeetingAccessLabel('link')} />
         <Table title="Invite Link" description={meetingLink} />
       </div>
-      <div className="flex gap-5">
-        <Button className="bg-blue-1" onClick={startRoom}>
+      <div className="flex flex-col gap-3 sm:flex-row sm:gap-5">
+        <Button className="w-full bg-blue-1 sm:w-auto" onClick={startRoom}>
           Start Meeting
         </Button>
         <Button
-          className="bg-dark-3"
+          className="w-full bg-dark-3 sm:w-auto"
           onClick={() => {
             navigator.clipboard.writeText(meetingLink);
             toast({

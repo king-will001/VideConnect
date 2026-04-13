@@ -75,6 +75,7 @@ export const meetingFeatureOptions: Array<{
 const meetingPathPrefix = '/meeting/';
 const meetingAlphabet = 'abcdefghijklmnopqrstuvwxyz';
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '') ?? '';
+const absoluteUrlPattern = /^https?:\/\//i;
 
 const isObjectRecord = (
   value: unknown,
@@ -236,10 +237,41 @@ export const getMeetingAutoJoinPath = (
   return getMeetingPath(meetingId, `?${params.toString()}`);
 };
 
-export const getMeetingLink = (meetingId: string, query = '') => {
+export const getMeetingLink = (
+  meetingId: string,
+  query = '',
+  options?: {
+    absolute?: boolean;
+  },
+) => {
   const path = getMeetingPath(meetingId, query);
 
+  if (options?.absolute === false) {
+    return path;
+  }
+
   return baseUrl ? `${baseUrl}${path}` : path;
+};
+
+export const toAbsoluteUrl = (value: string) => {
+  const trimmedValue = value.trim();
+
+  if (!trimmedValue || absoluteUrlPattern.test(trimmedValue)) {
+    return trimmedValue;
+  }
+
+  const browserOrigin =
+    typeof window !== 'undefined' ? window.location.origin.replace(/\/$/, '') : '';
+
+  if (browserOrigin && trimmedValue.startsWith('/')) {
+    return `${browserOrigin}${trimmedValue}`;
+  }
+
+  if (baseUrl && trimmedValue.startsWith('/')) {
+    return `${baseUrl}${trimmedValue}`;
+  }
+
+  return trimmedValue;
 };
 
 export const getMeetingMetadata = (call?: CallLike | Call | null) => {

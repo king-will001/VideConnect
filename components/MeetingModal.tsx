@@ -53,7 +53,7 @@ const MeetingModal = ({
     >
       <DialogContent
         className={cn(
-          'flex w-full max-w-[520px] flex-col gap-6 border-none bg-dark-1 px-6 py-9 text-white',
+          'flex w-full max-w-[520px] flex-col gap-6 border-none bg-dark-1 px-5 py-7 text-white sm:px-6 sm:py-9',
           contentClassName,
         )}
       >
@@ -64,7 +64,7 @@ const MeetingModal = ({
             </div>
           )}
           <DialogTitle
-            className={cn('text-3xl font-bold leading-[42px]', className)}
+            className={cn('text-2xl font-bold leading-[34px] sm:text-3xl sm:leading-[42px]', className)}
           >
             {title}
           </DialogTitle>
@@ -75,7 +75,7 @@ const MeetingModal = ({
           <Button
             type="button"
             className={cn(
-              'gap-2 bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0',
+              'w-full gap-2 bg-blue-1 focus-visible:ring-0 focus-visible:ring-offset-0 sm:w-auto',
               buttonClassName,
             )}
             onClick={handleClick}
