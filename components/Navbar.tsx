@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { SignedIn, UserButton } from '@clerk/nextjs';
 
+import LazyUserButton from './LazyUserButton';
 import MobileNav from './MobileNav';
 
 const Navbar = () => {
@@ -12,18 +12,15 @@ const Navbar = () => {
           src="/icons/logo.svg"
           width={32}
           height={32}
-          alt="yoom logo"
-          className="max-sm:size-10"
+          alt="VideConnect logo"
+          className="max-sm:h-10 max-sm:w-auto"
         />
         <p className="text-[26px] font-extrabold text-white max-sm:hidden">
-          YOOM
+          VideConnect
         </p>
       </Link>
       <div className="flex-between gap-5">
-        <SignedIn>
-          <UserButton afterSignOutUrl="/sign-in" />
-        </SignedIn>
-
+        <LazyUserButton />
         <MobileNav />
       </div>
     </nav>

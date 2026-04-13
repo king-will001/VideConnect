@@ -30,7 +30,7 @@
 
 ## 🚨 Tutorial
 
-This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>. 
+This repository contains the code corresponding to an in-depth tutorial available on our YouTube channel, <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a>.
 
 If you prefer visual learning, this is the perfect resource for you. Follow our tutorial to learn how to build projects like these step-by-step in a beginner-friendly manner!
 
@@ -55,7 +55,6 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 ## <a name="features">🔋 Features</a>
 
-
 👉 **Authentication**: Implements authentication and authorization features using Clerk, allowing users to securely log in via social sign-on or traditional email and password methods, while ensuring appropriate access levels and permissions within the platform.
 
 👉 **New Meeting**: Quickly start a new meeting, configuring camera and microphone settings before joining.
@@ -78,7 +77,7 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 👉 **Responsive Design**: Follows responsive design principles to ensure optimal user experience across devices, adapting seamlessly to different screen sizes and resolutions.
 
-and many more, including code architecture and reusability. 
+and many more, including code architecture and reusability.
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
@@ -109,7 +108,7 @@ npm install
 
 **Set Up Environment Variables**
 
-Create a new file named `.env` in the root of your project and add the following content:
+Create a new file named `.env.local` in the root of your project and add the following content:
 
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
@@ -120,9 +119,17 @@ NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
 
 NEXT_PUBLIC_STREAM_API_KEY=
 STREAM_SECRET_KEY=
+NEXT_PUBLIC_BASE_URL=http://localhost:3001
+
+MONGODB_URI=
+MONGODB_DB=yoom
 ```
 
 Replace the placeholder values with your actual Clerk & getstream credentials. You can obtain these credentials by signing up on the [Clerk website](https://clerk.com/) and [getstream website](https://getstream.io/)
+
+If you want MongoDB enabled, set `MONGODB_URI` to your Atlas or local connection string. The app will upsert signed-in Clerk users into a `users` collection automatically, and you can verify the database connection at `/api/mongodb`.
+
+You can also copy `.env.example` and fill in the missing values. The app will show a setup screen until `NEXT_PUBLIC_STREAM_API_KEY` and `STREAM_SECRET_KEY` are configured.
 
 **Running the Project**
 
@@ -130,7 +137,13 @@ Replace the placeholder values with your actual Clerk & getstream credentials. Y
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
+If PowerShell blocks `npm.ps1` on your machine, use:
+
+```bash
+npm.cmd run dev
+```
+
+Open [http://localhost:3001](http://localhost:3001) in your browser to view the project.
 
 ## <a name="snippets">🕸️ Snippets</a>
 

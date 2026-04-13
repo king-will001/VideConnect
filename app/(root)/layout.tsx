@@ -1,11 +1,20 @@
 import { ReactNode } from 'react';
 
-import StreamVideoProvider from '@/providers/StreamClientProvider';
+import LazyStreamClientProvider from '@/providers/LazyStreamClientProvider';
 
-const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
+const RootLayout = async ({
+  children,
+}: Readonly<{ children: ReactNode }>) => {
+  const missingStreamEnvVars = [
+    !process.env.NEXT_PUBLIC_STREAM_API_KEY && 'NEXT_PUBLIC_STREAM_API_KEY',
+    !process.env.STREAM_SECRET_KEY && 'STREAM_SECRET_KEY',
+  ].filter(Boolean) as string[];
+
   return (
     <main>
-      <StreamVideoProvider>{children}</StreamVideoProvider>
+      <LazyStreamClientProvider missingEnvVars={missingStreamEnvVars}>
+        {children}
+      </LazyStreamClientProvider>
     </main>
   );
 };

@@ -9,9 +9,11 @@ export const useGetCalls = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadCalls = async () => {
       if (!client || !user?.id) return;
-      
+
       setIsLoading(true);
 
       try {
@@ -27,26 +29,34 @@ export const useGetCalls = () => {
           },
         });
 
-        setCalls(calls);
+        if (isMounted) {
+          setCalls(calls);
+        }
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
-    loadCalls();
+    void loadCalls();
+
+    return () => {
+      isMounted = false;
+    };
   }, [client, user?.id]);
 
   const now = new Date();
 
   const endedCalls = calls?.filter(({ state: { startsAt, endedAt } }: Call) => {
-    return (startsAt && new Date(startsAt) < now) || !!endedAt
-  })
+    return (startsAt && new Date(startsAt) < now) || !!endedAt;
+  });
 
   const upcomingCalls = calls?.filter(({ state: { startsAt } }: Call) => {
-    return startsAt && new Date(startsAt) > now
-  })
+    return startsAt && new Date(startsAt) > now;
+  });
 
-  return { endedCalls, upcomingCalls, callRecordings: calls, isLoading }
+  return { endedCalls, upcomingCalls, callRecordings: calls ?? [], isLoading };
 };

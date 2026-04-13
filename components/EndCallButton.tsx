@@ -1,11 +1,20 @@
 'use client';
 
+import { type ButtonHTMLAttributes } from 'react';
 import { useCall, useCallStateHooks } from '@stream-io/video-react-sdk';
+
+import { cn } from '@/lib/utils';
 
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
 
-const EndCallButton = () => {
+const EndCallButton = ({
+  className,
+  label = 'End call for everyone',
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  label?: string;
+}) => {
   const call = useCall();
   const router = useRouter();
 
@@ -31,8 +40,15 @@ const EndCallButton = () => {
   };
 
   return (
-    <Button onClick={endCall} className="bg-red-500">
-      End call for everyone
+    <Button
+      onClick={endCall}
+      className={cn(
+        'bg-red-500 text-white hover:bg-red-500/90',
+        className,
+      )}
+      {...props}
+    >
+      {label}
     </Button>
   );
 };
